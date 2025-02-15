@@ -28,8 +28,8 @@ This is a **full-stackInternship Management Platform** built using the **MERN st
 - Enhanced User dashboard
 - Enhanced admin dashboard with analytics!
 ## Project Screenshots
-[Screenshot 2025-02-15 072443](https://github.com/user-attachments/assets/7be6541a-319e-489c-baf3-7ae98a070a02)
 ![Screenshot 2025-02-15 072406](https://github.com/user-attachments/assets/8ca2cc2a-1dff-41d2-afbf-db24e26ab54d)
+![Screenshot 2025-02-15 072443](https://github.com/user-attachments/assets/7be6541a-319e-489c-baf3-7ae98a070a02)
 ![Screenshot 2025-02-15 072337](https://github.com/user-attachments/assets/7d0f2ea8-d0d4-415c-bc40-ef48921c01a4)
 ![Screenshot 2025-02-15 072308](https://github.com/user-attachments/assets/ddcaaded-14ee-4aa1-ae96-2c7804865e7b)
 ![3](https://github.com/user-attachments/assets/d6079313-d79e-4102-95c3-a5e01fcdb7a5)
