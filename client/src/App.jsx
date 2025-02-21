@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import SignupPage from "./pages/SignupPage";
 import UserDashboard from "./pages/UserDashboard";
@@ -10,7 +10,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import LoginPage from "./pages/LoginPage";
 import useAuthStore from "./store/authStore";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 const App = () => {
   const { authUser } = useAuthStore();
   return (
@@ -19,10 +19,11 @@ const App = () => {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/signup" element={
-          !authUser? 
-          <SignupPage />:<HomePage/>} />
+          !authUser ? <SignupPage/> : <Navigate to="/" />
+        }/>
         <Route path="/login" element={
-          <LoginPage />} />
+          !authUser ?
+          <LoginPage /> : <Navigate to="/"></Navigate> } />
         <Route path="/dashboard" element={
           authUser ?
           <UserDashboard />
@@ -38,6 +39,7 @@ const App = () => {
           <SignupPage/>} />
           </Routes>
       <Footer />
+      <Toaster/>
     </div>
   );
 };

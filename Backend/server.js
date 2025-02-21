@@ -34,3 +34,5 @@ app.listen(PORT, () => {
   console.log("server is running on PORT:" + PORT);
   connectDB();
 });
+
+// create the githu repo-> copy repo link-> initialize your folder in vs code(first commit) and click check icon-> go to pullPush->push->enter url->give an name->again repeat the previos step

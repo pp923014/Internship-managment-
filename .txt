@@ -1,0 +1,7 @@
+Further work
+1. setup the Our Services,Available Internships with image and title
+2. rewrite the schema that will store the certificate no.
+3. write the logic to fetch data from certificate no. and show the detail on client side
+4. write the api logic to store the user image
+5. design admin pannel that he can send the Our Services,Available Internships field and add the certificte no. from the frontend.
+6. create about us and privacy policy page

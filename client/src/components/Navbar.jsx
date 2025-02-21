@@ -19,6 +19,7 @@ const Navbar = () => {
   const handleLogout = () => {
     logout(); // Ensure logout function is called
     window.location.reload(); // Refresh the page after logout
+    window.location.href = "/";
   };
 
   return (

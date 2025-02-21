@@ -27,6 +27,12 @@ const ApplySchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    certificate: {
+      type: String, // This will store the certificate URL or file path
+      unique: true,
+      default:
+        "hftydevytfywfetyvtyedftydvytf65drfbydg67fgevghvtysfdfsvjwbfe5fvgtfs56fvegvytfdyt", // Initially, no certificate is assigned
+    },
   },
   { timestamps: true }
 );

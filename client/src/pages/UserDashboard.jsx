@@ -1,57 +1,105 @@
-import React from "react";
+import React,{useState} from "react";
 import th from "../assets/th.png";
-
+import useAuthStore from '../store/authStore'
+import { Camera, Mail, User } from "lucide-react";
 const UserDashboard = () => {
-  return (
-    <div
-      className="flex items-center justify-center min-h-screen bg-white"
-      style={{ height: "100vh" }}
-    >
-      {/* Card */}
-      <div className="bg-white rounded-lg shadow-2xl overflow-hidden border-2 border-gray-300 p-8 max-w-sm w-full">
-        {/* Image Section */}
-        <div className="flex justify-center">
-          <div className="relative">
-            <img
-              src={th} // Use your imported image
-              alt="Profile"
-              className="w-24 h-24 rounded-full object-cover border-4 border-white shadow-lg"
-            />
-            {/* Image Upload Button (Optional) */}
-            <label className="absolute bottom-0 right-0 bg-white p-1 rounded-full shadow-md cursor-pointer hover:bg-gray-100">
-              <input
-                type="file"
-                className="hidden"
-                accept="image/*"
-              />
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6 text-gray-700"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"
-                />
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"
-                />
-              </svg>
-            </label>
-          </div>
-        </div>
+  const { authUser, isUpdatingProfile, updateProfile } = useAuthStore();
+  const [selectedImg, setSelectedImg] = useState(null);
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
 
-        {/* Details Section */}
-        <div className="mt-6 text-center">
-          <h2 className="text-xl font-bold text-black">Priyanshu</h2>
-          <p className="text-black mt-2">Priyansu@gmail.com</p>
+    const reader = new FileReader();
+
+    reader.readAsDataURL(file);
+
+    reader.onload = async () => {
+      const base64Image = reader.result;
+      setSelectedImg(base64Image);
+      await updateProfile({ profilePic: base64Image });
+    };
+  };
+
+  return (
+    <div className="h-screen pt-20 bg-gray-50">
+      <div className="max-w-2xl mx-auto p-4 py-8">
+        <div className="bg-white rounded-xl p-6 space-y-8 shadow-lg">
+          <div className="text-center">
+            <h1 className="text-2xl font-semibold text-gray-900">Profile</h1>
+            <p className="mt-2 text-gray-500">Your profile information</p>
+          </div>
+
+          {/* Avatar Upload Section */}
+          <div className="flex flex-col items-center gap-4">
+            <div className="relative">
+              <img
+                src={selectedImg || authUser.profilePic || "/avatar.png"}
+                alt="Profile"
+                className="size-32 rounded-full object-cover border-4 border-white shadow-md"
+              />
+              <label
+                htmlFor="avatar-upload"
+                className={`
+                  absolute bottom-0 right-0 
+                  bg-blue-500 hover:bg-blue-600 hover:scale-105
+                  p-2 rounded-full cursor-pointer 
+                  transition-all duration-200
+                  ${isUpdatingProfile ? "animate-pulse pointer-events-none" : ""}
+                `}
+              >
+                <Camera className="w-5 h-5 text-white" />
+                <input
+                  type="file"
+                  id="avatar-upload"
+                  className="hidden"
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                  disabled={isUpdatingProfile}
+                />
+              </label>
+            </div>
+            <p className="text-sm text-gray-500">
+              {isUpdatingProfile ? "Uploading..." : "Click the camera icon to update your photo"}
+            </p>
+          </div>
+
+          {/* Profile Details */}
+          <div className="space-y-6">
+            <div className="space-y-1.5">
+              <div className="text-sm text-gray-500 flex items-center gap-2">
+                <User className="w-4 h-4" />
+                Full Name
+              </div>
+              <p className="px-4 py-2.5 bg-gray-100 rounded-lg border border-gray-200 text-gray-900">
+                {authUser?.fullName}
+              </p>
+            </div>
+
+            <div className="space-y-1.5">
+              <div className="text-sm text-gray-500 flex items-center gap-2">
+                <Mail className="w-4 h-4" />
+                Email Address
+              </div>
+              <p className="px-4 py-2.5 bg-gray-100 rounded-lg border border-gray-200 text-gray-900">
+                {authUser?.email}
+              </p>
+            </div>
+          </div>
+
+          {/* Account Information */}
+          <div className="mt-6 bg-white rounded-xl p-6 shadow-sm">
+            <h2 className="text-lg font-medium text-gray-900 mb-4">Account Information</h2>
+            <div className="space-y-3 text-sm">
+              <div className="flex items-center justify-between py-2 border-b border-gray-200">
+                <span className="text-gray-700">Member Since</span>
+                <span className="text-gray-900">{authUser.createdAt?.split("T")[0]}</span>
+              </div>
+              <div className="flex items-center justify-between py-2">
+                <span className="text-gray-700">Account Status</span>
+                <span className="text-green-500">Active</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

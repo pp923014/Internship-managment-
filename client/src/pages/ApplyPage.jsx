@@ -235,6 +235,7 @@ const ApplyPage = () => {
           >
             <option value="">Select an option</option>
             <option value="Frontend Development">Frontend Development</option>
+            <option value="App Development">App Development</option>
             <option value="Backend Development">Backend Development</option>
             <option value="Full Stack Development">Full Stack Development</option>
           </select>
